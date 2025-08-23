@@ -4,10 +4,12 @@ import { fetchUserDocumentsMock, uploadDocumentMock, deleteDocumentMock } from '
 import { uploadSchema } from '../lib/schemas'
 import { useMemo, useRef, useState } from 'react'
 import { motion } from 'framer-motion'
-import { FiBarChart, FiSettings, FiFolder, FiUpload, FiTrendingUp, FiPlus, FiTrash2 } from 'react-icons/fi'
+import { FiBarChart, FiSettings, FiFolder, FiUpload, FiTrendingUp, FiPlus, FiTrash2, FiDownload } from 'react-icons/fi'
 import { AnalyticsDashboard } from '../components/AnalyticsDashboard'
 import { IntegrationHub } from '../components/IntegrationHub'
 import { CollectionModal } from '../components/CollectionModal'
+import { BatchExport } from '../components/BatchExport'
+import { BatchImport } from '../components/BatchImport'
 import { useCollections } from '../hooks/useCollections'
 import { useAnalytics } from '../hooks/useAnalytics'
 
@@ -36,6 +38,8 @@ function DashboardInner() {
   
   const [activeTab, setActiveTab] = useState<'overview' | 'documents' | 'analytics' | 'integrations' | 'collections'>('overview')
   const [showCreateCollection, setShowCreateCollection] = useState(false)
+  const [showBatchExport, setShowBatchExport] = useState(false)
+  const [showBatchImport, setShowBatchImport] = useState(false)
   const { collections } = useCollections()
   const { getTotalStats } = useAnalytics()
 
@@ -68,6 +72,21 @@ function DashboardInner() {
     form.set('title', title)
     if (file) form.set('file', file)
     mutate(form)
+  }
+
+  const handleBatchImport = async (documents: any[]) => {
+    try {
+      for (const doc of documents) {
+        const form = new FormData()
+        form.set('title', doc.name)
+        if (doc.file) form.set('file', doc.file)
+        await uploadDocumentMock(form)
+      }
+      qc.invalidateQueries({ queryKey: ['my-documents', userId] })
+    } catch (error) {
+      console.error('Batch import failed:', error)
+      throw error
+    }
   }
 
   const tabs = [
@@ -138,7 +157,26 @@ function DashboardInner() {
       </motion.form>
 
       <div>
-        <h2 className="font-semibold mb-3 text-white">Mes documents</h2>
+        <div className="flex items-center justify-between mb-3">
+          <h2 className="font-semibold text-white">Mes documents</h2>
+          <div className="flex gap-2">
+            <button
+              onClick={() => setShowBatchImport(true)}
+              className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-blue-600 text-white text-sm hover:bg-blue-700 transition-colors"
+            >
+              <FiUpload className="w-4 h-4" />
+              Import en lot
+            </button>
+            <button
+              onClick={() => setShowBatchExport(true)}
+              disabled={!data || data.length === 0}
+              className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-green-600 text-white text-sm hover:bg-green-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+            >
+              <FiDownload className="w-4 h-4" />
+              Export en lot
+            </button>
+          </div>
+        </div>
         {isLoading ? (
           <div className="text-gray-400">Chargement...</div>
         ) : (
@@ -273,6 +311,33 @@ function DashboardInner() {
             mode="create"
           />
         </div>
+      )}
+
+      {/* Batch Operations Modals */}
+      {showBatchExport && data && (
+        <BatchExport
+          documents={data.map(doc => ({
+            id: doc.id,
+            name: doc.title || `Document ${doc.id}`,
+            type: doc.type || 'unknown',
+            size: doc.sizeBytes || 0,
+            file: undefined, // Files are not stored in DocumentItem, only URLs
+            downloadUrl: doc.downloadUrl,
+            uploadDate: new Date(doc.createdAt).toISOString(),
+            category: doc.category || 'General',
+            tags: doc.tags || [],
+            description: doc.description || '',
+            thumbnail: doc.thumbnailUrl
+          }))}
+          onClose={() => setShowBatchExport(false)}
+        />
+      )}
+
+      {showBatchImport && (
+        <BatchImport
+          onImport={handleBatchImport}
+          onClose={() => setShowBatchImport(false)}
+        />
       )}
     </div>
   )

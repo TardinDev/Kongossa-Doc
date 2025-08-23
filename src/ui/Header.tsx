@@ -6,6 +6,7 @@ import { FaHeart } from 'react-icons/fa'
 import { FiUpload } from 'react-icons/fi'
 import { useState } from 'react'
 import { UploadModal } from '../components/UploadModal'
+import { NotificationCenter } from '../components/NotificationCenter'
 
 export function Header() {
   const [showUploadModal, setShowUploadModal] = useState(false)
@@ -75,6 +76,7 @@ export function Header() {
                 <FaHeart className="w-4 h-4" />
                 <span className="hidden sm:inline">Favoris</span>
               </NavLink>
+              <NotificationCenter />
               <UserButton afterSignOutUrl="/" appearance={{ elements: { userButtonOuterIdentifier: 'font-sans' } }} />
             </SignedIn>
           </nav>

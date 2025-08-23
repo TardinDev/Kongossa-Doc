@@ -114,3 +114,93 @@ body{
 .scrollbar-thin::-webkit-scrollbar-thumb:hover {
   background: rgba(249, 115, 22, 0.7);
 }
+
+/* Keyboard navigation styles */
+[data-keyboard-navigable] {
+  transition: all 0.2s ease;
+}
+
+[data-keyboard-navigable].keyboard-selected,
+[data-keyboard-navigable][data-keyboard-selected="true"] {
+  outline: 2px solid var(--accent-orange);
+  outline-offset: 2px;
+  transform: scale(1.02);
+  box-shadow: 0 4px 20px rgba(249, 115, 22, 0.3);
+}
+
+.light-theme [data-keyboard-navigable].keyboard-selected,
+.light-theme [data-keyboard-navigable][data-keyboard-selected="true"] {
+  outline: 2px solid var(--accent-orange);
+  box-shadow: 0 4px 20px rgba(234, 88, 12, 0.3);
+}
+
+/* Focus styles for accessibility */
+:focus-visible {
+  outline: 2px solid var(--accent-orange);
+  outline-offset: 2px;
+}
+
+/* Loading animations */
+@keyframes shimmer {
+  0% {
+    background-position: -200px 0;
+  }
+  100% {
+    background-position: calc(200px + 100%) 0;
+  }
+}
+
+.shimmer {
+  animation: shimmer 2s infinite;
+  background: linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.1) 50%, transparent 100%);
+  background-size: 200px 100%;
+}
+
+/* PDF viewer styles */
+.react-pdf__Document {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.react-pdf__Page {
+  max-width: 100%;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  margin: 1rem 0;
+}
+
+.react-pdf__Page__textContent {
+  user-select: text;
+}
+
+.react-pdf__Page__annotations {
+  user-select: none;
+}
+
+/* PWA install button */
+.pwa-install-prompt {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: var(--accent-orange);
+  color: black;
+  padding: 12px 20px;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(249, 115, 22, 0.4);
+  font-weight: 600;
+  cursor: pointer;
+  transform: translateY(100px);
+  opacity: 0;
+  transition: all 0.3s ease;
+  z-index: 1000;
+}
+
+.pwa-install-prompt.show {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+.pwa-install-prompt:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 25px rgba(249, 115, 22, 0.5);
+}

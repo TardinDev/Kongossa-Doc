@@ -11,6 +11,7 @@ import { useFavorites } from '../hooks/useFavorites'
 import { useToast } from '../hooks/useToast'
 import { SOCIAL_SHARE_URLS } from '../constants/socialShare'
 import { CollectionModal } from './CollectionModal'
+import { OptimizedImage } from './OptimizedImage'
 
 function typeEmoji(type: DocumentItem['type']) {
   switch (type) {
@@ -109,14 +110,14 @@ export const DocumentCard = memo<DocumentCardProps>(({ doc, onPreview }) => {
       whileHover={{ y: -4, scale: 1.01 }}
       whileTap={{ scale: 0.98 }}
       className="group rounded-xl border border-white/10 bg-white/5 shadow-sm hover:shadow-md transition-shadow backdrop-blur"
+      data-keyboard-navigable
     >
       <div className="relative aspect-video w-full overflow-hidden bg-black/30">
         {doc.type === 'image' ? (
-          <img 
-            src={doc.thumbnailUrl ?? doc.previewUrl} 
-            alt={doc.title} 
-            className="w-full h-full object-cover" 
-            loading="lazy"
+          <OptimizedImage
+            src={doc.thumbnailUrl ?? doc.previewUrl}
+            alt={doc.title}
+            className="w-full h-full"
           />
         ) : (
           <div className="w-full h-full grid place-items-center text-5xl">{typeEmoji(doc.type)}</div>

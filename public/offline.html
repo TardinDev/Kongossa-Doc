@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hors ligne - KongossaDoc</title>
+    <style>
+        :root {
+            --color-bg: #0a0a0a;
+            --color-primary: #2563eb;
+            --accent-orange: #f97316;
+            --text-silver: #d1d5db;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: var(--color-bg);
+            color: white;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+
+        .container {
+            max-width: 500px;
+            padding: 2rem;
+        }
+
+        .icon {
+            font-size: 4rem;
+            margin-bottom: 2rem;
+        }
+
+        h1 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            color: var(--accent-orange);
+        }
+
+        p {
+            color: var(--text-silver);
+            margin-bottom: 2rem;
+            line-height: 1.6;
+        }
+
+        .button {
+            display: inline-block;
+            background: var(--accent-orange);
+            color: black;
+            padding: 12px 24px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: background-color 0.2s;
+        }
+
+        .button:hover {
+            background: #ea580c;
+        }
+
+        .features {
+            margin-top: 3rem;
+            text-align: left;
+        }
+
+        .features h3 {
+            color: var(--accent-orange);
+            margin-bottom: 1rem;
+        }
+
+        .features ul {
+            color: var(--text-silver);
+            list-style-position: inside;
+        }
+
+        .features li {
+            margin-bottom: 0.5rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="icon">📱</div>
+        <h1>Mode hors ligne</h1>
+        <p>
+            Vous êtes actuellement hors ligne, mais KongossaDoc fonctionne toujours !
+            Vous pouvez naviguer dans vos documents mis en cache et effectuer certaines actions.
+        </p>
+        
+        <a href="/" class="button">Retourner à l'accueil</a>
+
+        <div class="features">
+            <h3>Fonctionnalités disponibles hors ligne :</h3>
+            <ul>
+                <li>🔍 Consulter les documents mis en cache</li>
+                <li>⭐ Gérer vos favoris</li>
+                <li>📁 Organiser vos collections</li>
+                <li>🎨 Naviguer dans l'interface</li>
+            </ul>
+
+            <h3 style="margin-top: 2rem;">Actions synchronisées automatiquement :</h3>
+            <ul>
+                <li>📤 Uploads en attente</li>
+                <li>💬 Commentaires sauvegardés</li>
+                <li>⚡ Interactions mises en file</li>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        // Check if back online
+        window.addEventListener('online', () => {
+            // Refresh page when back online
+            setTimeout(() => {
+                window.location.reload();
+            }, 1000);
+        });
+    </script>
+</body>
+</html>
