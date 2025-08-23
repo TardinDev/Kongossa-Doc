@@ -1,0 +1,116 @@
+@import "tailwindcss";
+
+:root{
+  --color-primary: #00A651; /* green primary */
+  --color-deep: #00713C; /* deep green */
+  --color-black: #000000;
+  --color-gray: #333333; /* anthracite */
+  --color-white: #FFFFFF;
+  --color-gold: #C9A646; /* optional */
+  --color-bg: #0d1117; /* dark background */
+  --text-silver: #d1d5db; /* silver-like text */
+  --accent-orange: #f97316; /* orange-500 */
+}
+
+.light-theme {
+  --color-bg: #f8fafc; /* light background */
+  --text-silver: #475569; /* darker text for light mode */
+  --color-primary: #00A651;
+  --color-deep: #00713C;
+  --accent-orange: #ea580c; /* slightly darker orange for light mode */
+}
+
+html, body, #root {
+  height: 100%;
+}
+
+body{
+  font-family: "Open Sans", system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, sans-serif;
+  color: var(--text-silver);
+  background-color: var(--color-bg);
+  background-image: 
+    radial-gradient(circle at 25% 25%, rgba(0, 166, 81, 0.1) 0%, transparent 50%),
+    radial-gradient(circle at 75% 75%, rgba(249, 115, 22, 0.1) 0%, transparent 50%);
+}
+
+.light-theme body {
+  background-image: 
+    radial-gradient(circle at 25% 25%, rgba(0, 166, 81, 0.05) 0%, transparent 50%),
+    radial-gradient(circle at 75% 75%, rgba(234, 88, 12, 0.05) 0%, transparent 50%);
+}
+
+.font-heading{ 
+  font-family: "Montserrat", ui-sans-serif, system-ui, sans-serif; 
+}
+
+.font-mono{ 
+  font-family: "Roboto Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace; 
+}
+
+.gradient-border {
+  background: linear-gradient(135deg, var(--accent-orange), var(--color-primary));
+  padding: 2px;
+  border-radius: 12px;
+}
+
+.gradient-border > * {
+  background: var(--color-bg);
+  border-radius: 10px;
+}
+
+.hover-glow {
+  transition: box-shadow 0.3s ease;
+}
+
+.hover-glow:hover {
+  box-shadow: 0 0 20px rgba(249, 115, 22, 0.3);
+}
+
+.glass-card {
+  backdrop-filter: blur(10px);
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.light-theme .glass-card {
+  background: rgba(255, 255, 255, 0.7);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+}
+
+.float-animation {
+  animation: float 6s ease-in-out infinite;
+}
+
+.text-gradient {
+  background: linear-gradient(135deg, var(--accent-orange), var(--color-primary));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.scrollbar-thin {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(249, 115, 22, 0.5) transparent;
+}
+
+.scrollbar-thin::-webkit-scrollbar {
+  width: 6px;
+}
+
+.scrollbar-thin::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.scrollbar-thin::-webkit-scrollbar-thumb {
+  background: rgba(249, 115, 22, 0.5);
+  border-radius: 3px;
+}
+
+.scrollbar-thin::-webkit-scrollbar-thumb:hover {
+  background: rgba(249, 115, 22, 0.7);
+}
