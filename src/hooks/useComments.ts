@@ -1,18 +1,6 @@
 import { useState, useCallback, useEffect } from 'react'
 import { useAuth } from '@clerk/clerk-react'
-
-export interface Comment {
-  id: string
-  documentId: string
-  userId: string
-  userName: string
-  userAvatar?: string
-  content: string
-  createdAt: number
-  updatedAt?: number
-  parentId?: string
-  replies?: Comment[]
-}
+import type { Comment } from '../types/comments'
 
 const COMMENTS_KEY = 'kongossa_comments'
 

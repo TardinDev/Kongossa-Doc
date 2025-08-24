@@ -1,29 +1,6 @@
 import React, { useState, useRef } from 'react';
 import { Upload, FileText, Image, Film, Music, Archive, X, CheckCircle, AlertCircle } from 'lucide-react';
-interface Document {
-  name: string;
-  type: string;
-  size: number;
-  file?: File;
-  uploadDate: string;
-  category: string;
-  tags: string[];
-  description: string;
-  thumbnail?: string;
-}
-
-interface ImportFile {
-  file: File;
-  preview?: string;
-  status: 'pending' | 'processing' | 'success' | 'error';
-  error?: string;
-  documentId?: string;
-}
-
-interface BatchImportProps {
-  onImport: (documents: Document[]) => Promise<void>;
-  onClose: () => void;
-}
+import type { BatchDocument, BatchImportProps, ImportFile } from '../types/batch';
 
 export const BatchImport: React.FC<BatchImportProps> = ({ onImport, onClose }) => {
   const [files, setFiles] = useState<ImportFile[]>([]);
@@ -126,7 +103,7 @@ export const BatchImport: React.FC<BatchImportProps> = ({ onImport, onClose }) =
 
   const processFiles = async () => {
     setIsImporting(true);
-    const processedDocuments: Document[] = [];
+    const processedDocuments: BatchDocument[] = [];
 
     for (let i = 0; i < files.length; i++) {
       const importFile = files[i];
@@ -141,7 +118,8 @@ export const BatchImport: React.FC<BatchImportProps> = ({ onImport, onClose }) =
           .map(tag => tag.trim())
           .filter(tag => tag.length > 0);
 
-        const document: Document = {
+        const document: BatchDocument = {
+          id: `doc_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`,
           name: importFile.file.name,
           type: fileExtension,
           size: importFile.file.size,

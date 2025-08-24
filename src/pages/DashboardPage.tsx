@@ -10,6 +10,7 @@ import { IntegrationHub } from '../components/IntegrationHub'
 import { CollectionModal } from '../components/CollectionModal'
 import { BatchExport } from '../components/BatchExport'
 import { BatchImport } from '../components/BatchImport'
+import type { BatchDocument } from '../types/batch'
 import { useCollections } from '../hooks/useCollections'
 
 export default function DashboardPage() {
@@ -71,7 +72,7 @@ function DashboardInner() {
     mutate(form)
   }
 
-  const handleBatchImport = async (documents: any[]) => {
+  const handleBatchImport = async (documents: BatchDocument[]) => {
     try {
       for (const doc of documents) {
         const form = new FormData()

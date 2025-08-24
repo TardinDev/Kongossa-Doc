@@ -1,7 +1,8 @@
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { FiMessageSquare, FiSend, FiEdit2, FiTrash2 } from 'react-icons/fi'
-import { useComments, type Comment } from '../hooks/useComments'
+import { useComments } from '../hooks/useComments'
+import type { Comment } from '../types/comments'
 import { useToast } from '../hooks/useToast'
 import { useAuth } from '@clerk/clerk-react'
 

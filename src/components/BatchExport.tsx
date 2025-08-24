@@ -1,23 +1,6 @@
 import React, { useState } from 'react';
 import { Download, FileText, Image, Film, Music, Archive, CheckSquare, Square } from 'lucide-react';
-interface Document {
-  id: string;
-  name: string;
-  type: string;
-  size: number;
-  file?: File;
-  downloadUrl?: string;
-  uploadDate: string;
-  category: string;
-  tags: string[];
-  description: string;
-  thumbnail?: string;
-}
-
-interface BatchExportProps {
-  documents: Document[];
-  onClose: () => void;
-}
+import type { BatchExportProps } from '../types/batch';
 
 export const BatchExport: React.FC<BatchExportProps> = ({ documents, onClose }) => {
   const [selectedDocuments, setSelectedDocuments] = useState<Set<string>>(new Set());
