@@ -2,7 +2,7 @@ import { DocumentCard } from '../components/DocumentCard'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Link } from 'react-router-dom'
 import { SearchAndFilters } from '../components/SearchAndFilters'
-import { LoadingSkeleton, DocumentCardSkeleton } from '../components/LoadingSkeleton'
+import { LoadingSkeleton } from '../components/LoadingSkeleton'
 import { HeroSection } from '../components/HeroSection'
 import { useDocuments } from '../hooks/useDocuments'
 import { useToast } from '../hooks/useToast'
@@ -16,7 +16,6 @@ export default function HomePage() {
     error,
     query,
     setQuery,
-    page,
     setPage,
     sortBy,
     setSortBy,

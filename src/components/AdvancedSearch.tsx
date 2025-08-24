@@ -92,7 +92,7 @@ export function AdvancedSearch({ onSearch, initialFilters = {}, resultCount }: A
     setFilters(prev => ({ ...prev, [key]: value }))
   }, [])
 
-  const toggleArrayValue = useCallback(<T>(array: T[], value: T) => {
+  const toggleArrayValue = useCallback(<T,>(array: T[], value: T) => {
     return array.includes(value)
       ? array.filter(item => item !== value)
       : [...array, value]

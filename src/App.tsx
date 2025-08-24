@@ -13,7 +13,7 @@ const DocumentPreviewPage = lazy(() => import('./pages/DocumentPreviewPage'))
 const FavoritesPage = lazy(() => import('./pages/FavoritesPage'))
 
 function AppInner() {
-  // Initialize service worker and keyboard shortcuts
+  // Test both hooks
   const { isOnline, updateAvailable, updateServiceWorker } = useServiceWorker()
   useGlobalKeyboardShortcuts()
 

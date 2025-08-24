@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { FiMessageSquare, FiSend, FiEdit2, FiTrash2, FiReply } from 'react-icons/fi'
-import { useComments, Comment } from '../hooks/useComments'
+import { FiMessageSquare, FiSend, FiEdit2, FiTrash2 } from 'react-icons/fi'
+import { useComments, type Comment } from '../hooks/useComments'
 import { useToast } from '../hooks/useToast'
 import { useAuth } from '@clerk/clerk-react'
 
@@ -115,7 +115,7 @@ function CommentItem({ comment, onReply, onEdit, onDelete, currentUserId, level 
                     onClick={() => onReply(comment.id)}
                     className="flex items-center gap-1 text-xs text-gray-400 hover:text-[var(--accent-orange)]"
                   >
-                    <FiReply className="w-3 h-3" />
+                    <FiSend className="w-3 h-3" />
                     Répondre
                   </button>
                 )}
@@ -248,7 +248,7 @@ export function CommentSection({ documentId }: CommentSectionProps) {
               <form onSubmit={handleSubmitComment} className="space-y-3">
                 {replyTo && (
                   <div className="text-sm text-[var(--accent-orange)] flex items-center gap-2">
-                    <FiReply className="w-4 h-4" />
+                    <FiSend className="w-4 h-4" />
                     Réponse en cours...
                     <button
                       type="button"

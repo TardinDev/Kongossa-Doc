@@ -41,11 +41,9 @@ function DashboardInner() {
   const [showBatchExport, setShowBatchExport] = useState(false)
   const [showBatchImport, setShowBatchImport] = useState(false)
   const { collections } = useCollections()
-  const { getTotalStats } = useAnalytics()
 
   const fileRef = useRef<HTMLInputElement | null>(null)
   const [title, setTitle] = useState('')
-  const totalStats = getTotalStats()
 
   const { mutate, isPending, error } = useMutation({
     mutationFn: async (formData: FormData) => uploadDocumentMock(formData),

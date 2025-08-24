@@ -30,14 +30,14 @@ export function useGlobalKeyboardShortcuts() {
       altKey: true,
       description: 'Aller au dashboard',
       action: () => navigate('/dashboard'),
-      condition: () => isSignedIn
+      condition: () => !!isSignedIn
     },
     {
       key: 'f',
       altKey: true,
       description: 'Aller aux favoris',
       action: () => navigate('/favorites'),
-      condition: () => isSignedIn
+      condition: () => !!isSignedIn
     },
     
     // Search
@@ -81,7 +81,7 @@ export function useGlobalKeyboardShortcuts() {
         const uploadButton = document.querySelector('[data-action="upload"]') as HTMLButtonElement
         if (uploadButton) uploadButton.click()
       },
-      condition: () => isSignedIn
+      condition: () => !!isSignedIn
     },
     {
       key: 'k',
@@ -91,7 +91,7 @@ export function useGlobalKeyboardShortcuts() {
         const createCollectionButton = document.querySelector('[data-action="create-collection"]') as HTMLButtonElement
         if (createCollectionButton) createCollectionButton.click()
       },
-      condition: () => isSignedIn
+      condition: () => !!isSignedIn
     },
 
     // Theme

@@ -4,7 +4,7 @@ import { fetchDocumentByIdMock } from '../api/mockDocuments'
 import { CommentSection } from '../components/CommentSection'
 import { useAnalytics } from '../hooks/useAnalytics'
 import { useEffect } from 'react'
-import { FiDownload, FiShare2, FiHeart, FiEye } from 'react-icons/fi'
+import { FiDownload, FiShare2, FiEye } from 'react-icons/fi'
 import { motion } from 'framer-motion'
 
 export default function DocumentPreviewPage() {

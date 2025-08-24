@@ -1,4 +1,5 @@
-import React, { Component, ErrorInfo, ReactNode } from 'react'
+import { Component } from 'react'
+import type { ErrorInfo, ReactNode } from 'react'
 import { motion } from 'framer-motion'
 import { FiRefreshCw, FiHome } from 'react-icons/fi'
 

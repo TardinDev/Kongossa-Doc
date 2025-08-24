@@ -1,4 +1,5 @@
-import { useEffect, useCallback, RefObject } from 'react'
+import { useEffect, useCallback } from 'react'
+import type { RefObject } from 'react'
 
 interface UseKeyboardNavigationProps {
   isOpen: boolean

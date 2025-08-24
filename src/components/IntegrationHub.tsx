@@ -1,7 +1,8 @@
 import { useState } from 'react'
 import { motion } from 'framer-motion'
 import { FiCloud, FiSettings, FiCheck, FiExternalLink, FiKey, FiRefreshCw } from 'react-icons/fi'
-import { SiGoogledrive, SiDropbox, SiMicrosoft } from 'react-icons/si'
+import { SiGoogledrive, SiDropbox } from 'react-icons/si'
+import { FiUsers } from 'react-icons/fi'
 import { useToast } from '../hooks/useToast'
 
 interface Integration {
@@ -37,7 +38,7 @@ const integrations: Integration[] = [
     id: 'onedrive',
     name: 'Microsoft OneDrive',
     description: 'Intégrez OneDrive pour une collaboration fluide avec les outils Microsoft.',
-    icon: <SiMicrosoft className="w-8 h-8" />,
+    icon: <FiUsers className="w-8 h-8" />,
     isConnected: false,
     features: ['Office 365', 'SharePoint', 'Teams collaboration'],
     color: '#0078d4'

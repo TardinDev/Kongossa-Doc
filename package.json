@@ -16,6 +16,7 @@
     "framer-motion": "^12.23.12",
     "jszip": "^3.10.1",
     "lottie-react": "^2.4.1",
+    "lucide-react": "^0.541.0",
     "pdfjs-dist": "^5.4.54",
     "react": "^19.1.1",
     "react-dom": "^19.1.1",
