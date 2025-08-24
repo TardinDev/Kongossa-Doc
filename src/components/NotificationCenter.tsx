@@ -26,7 +26,7 @@ export function NotificationCenter() {
     sendDemoNotification
   } = useNotifications()
 
-  useClickOutside(containerRef, () => {
+  useClickOutside(containerRef as any, () => {
     setIsOpen(false)
     setShowSettings(false)
   })

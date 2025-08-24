@@ -22,13 +22,12 @@ export function CollectionModal({ isOpen, onClose, documentId, mode }: Collectio
     collections, 
     createCollection, 
     addDocumentToCollection, 
-    removeDocumentFromCollection, 
-    getCollectionsForDocument 
+    removeDocumentFromCollection
   } = useCollections()
   
   const { toast } = useToast()
 
-  const documentCollections = documentId ? getCollectionsForDocument(documentId) : []
+  // const documentCollections = documentId ? getCollectionsForDocument(documentId) : []
 
   const handleCreateCollection = async (e: React.FormEvent) => {
     e.preventDefault()

@@ -11,7 +11,6 @@ import { CollectionModal } from '../components/CollectionModal'
 import { BatchExport } from '../components/BatchExport'
 import { BatchImport } from '../components/BatchImport'
 import { useCollections } from '../hooks/useCollections'
-import { useAnalytics } from '../hooks/useAnalytics'
 
 export default function DashboardPage() {
   return (

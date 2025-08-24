@@ -48,7 +48,7 @@ function SimpleChart({ data }: { data: ChartData[] }) {
   
   return (
     <div className="h-32 flex items-end gap-1">
-      {data.slice(-14).map((item, index) => (
+      {data.slice(-14).map((item) => (
         <div
           key={item.date}
           className="flex-1 bg-[var(--accent-orange)]/20 hover:bg-[var(--accent-orange)]/40 transition-colors rounded-t relative group"

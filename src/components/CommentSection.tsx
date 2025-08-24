@@ -21,7 +21,7 @@ interface CommentItemProps {
 function CommentItem({ comment, onReply, onEdit, onDelete, currentUserId, level = 0 }: CommentItemProps) {
   const [isEditing, setIsEditing] = useState(false)
   const [editContent, setEditContent] = useState(comment.content)
-  const [showReplies, setShowReplies] = useState(true)
+  const [showReplies] = useState(true)
 
   const handleEdit = () => {
     if (editContent.trim() !== comment.content) {
@@ -172,7 +172,8 @@ function CommentItem({ comment, onReply, onEdit, onDelete, currentUserId, level 
 }
 
 export function CommentSection({ documentId }: CommentSectionProps) {
-  const { user } = useAuth()
+  const { userId } = useAuth()
+  const user = { id: userId }
   const { comments, isLoading, addComment, updateComment, deleteComment, getCommentCount } = useComments(documentId)
   const { toast } = useToast()
   const [newComment, setNewComment] = useState('')
@@ -261,15 +262,7 @@ export function CommentSection({ documentId }: CommentSectionProps) {
                 )}
                 <div className="flex gap-3">
                   <div className="w-8 h-8 rounded-full bg-[var(--accent-orange)] flex items-center justify-center text-black font-semibold text-sm flex-shrink-0">
-                    {user.imageUrl ? (
-                      <img 
-                        src={user.imageUrl} 
-                        alt={user.fullName || 'User'}
-                        className="w-8 h-8 rounded-full object-cover"
-                      />
-                    ) : (
-                      (user.fullName || user.emailAddresses[0]?.emailAddress || 'U').charAt(0).toUpperCase()
-                    )}
+                    U
                   </div>
                   <div className="flex-1">
                     <textarea
@@ -318,7 +311,7 @@ export function CommentSection({ documentId }: CommentSectionProps) {
                     onReply={handleReply}
                     onEdit={handleEdit}
                     onDelete={handleDelete}
-                    currentUserId={user?.id}
+                    currentUserId={user.id || undefined}
                   />
                 ))}
               </div>

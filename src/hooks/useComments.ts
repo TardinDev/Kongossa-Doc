@@ -17,7 +17,8 @@ export interface Comment {
 const COMMENTS_KEY = 'kongossa_comments'
 
 export function useComments(documentId: string) {
-  const { user } = useAuth()
+  const { userId } = useAuth()
+  const user = { id: userId }
   const [comments, setComments] = useState<Comment[]>([])
   const [isLoading, setIsLoading] = useState(false)
 
@@ -52,9 +53,9 @@ export function useComments(documentId: string) {
       const newComment: Comment = {
         id: `comment_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`,
         documentId,
-        userId: user.id,
-        userName: user.fullName || user.emailAddresses[0]?.emailAddress || 'Utilisateur',
-        userAvatar: user.imageUrl,
+        userId: userId || 'anonymous',
+        userName: 'Utilisateur',
+        userAvatar: undefined,
         content: content.trim(),
         createdAt: Date.now(),
         parentId

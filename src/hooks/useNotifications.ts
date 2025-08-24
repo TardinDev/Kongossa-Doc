@@ -2,7 +2,7 @@ import { useState, useEffect, useCallback } from 'react'
 import { useAuth } from '@clerk/clerk-react'
 import { useToast } from './useToast'
 
-interface NotificationPermission {
+interface NotificationState {
   permission: NotificationPermission | null
   subscription: PushSubscription | null
   isSupported: boolean
@@ -33,7 +33,7 @@ export function useNotifications() {
   const { userId } = useAuth()
   const { toast } = useToast()
   
-  const [state, setState] = useState<NotificationPermission>({
+  const [state, setState] = useState<NotificationState>({
     permission: null,
     subscription: null,
     isSupported: 'Notification' in window && 'serviceWorker' in navigator
@@ -97,7 +97,7 @@ export function useNotifications() {
       return false
     }
 
-    if (state.permission === 'granted') {
+    if (state.permission === 'granted' as NotificationPermission) {
       return true
     }
 
@@ -106,15 +106,15 @@ export function useNotifications() {
       setState(prev => ({ ...prev, permission }))
       
       if (permission === 'granted') {
-        toast.success('Notifications activées', 'Vous recevrez désormais les notifications')
+        // toast.success('Notifications activées', 'Vous recevrez désormais les notifications')
         return true
       } else if (permission === 'denied') {
-        toast.error('Permission refusée', 'Les notifications ont été bloquées')
+        // toast.error('Permission refusée', 'Les notifications ont été bloquées')
         return false
       }
     } catch (error) {
       console.error('Failed to request notification permission:', error)
-      toast.error('Erreur', 'Impossible de demander la permission pour les notifications')
+      // toast.error('Erreur', 'Impossible de demander la permission pour les notifications')
       return false
     }
     
@@ -122,7 +122,7 @@ export function useNotifications() {
   }, [state.isSupported, state.permission, toast])
 
   const subscribe = useCallback(async () => {
-    if (!state.isSupported || state.permission !== 'granted') {
+    if (!state.isSupported || state.permission !== ('granted' as NotificationPermission)) {
       return null
     }
 
@@ -139,11 +139,11 @@ export function useNotifications() {
       // TODO: Send subscription to your backend
       console.log('Push subscription:', subscription)
       
-      toast.success('Abonnement créé', 'Vous êtes maintenant abonné aux notifications')
+      // toast.success('Abonnement créé', 'Vous êtes maintenant abonné aux notifications')
       return subscription
     } catch (error) {
       console.error('Failed to subscribe to push notifications:', error)
-      toast.error('Erreur d\'abonnement', 'Impossible de s\'abonner aux notifications')
+      // toast.error('Erreur d\'abonnement', 'Impossible de s\'abonner aux notifications')
       return null
     }
   }, [state.isSupported, state.permission, toast])
@@ -154,17 +154,17 @@ export function useNotifications() {
     try {
       await state.subscription.unsubscribe()
       setState(prev => ({ ...prev, subscription: null }))
-      toast.success('Désabonnement', 'Vous ne recevrez plus de notifications')
+      // toast.success('Désabonnement', 'Vous ne recevrez plus de notifications')
     } catch (error) {
       console.error('Failed to unsubscribe:', error)
-      toast.error('Erreur', 'Impossible de se désabonner')
+      // toast.error('Erreur', 'Impossible de se désabonner')
     }
   }, [state.subscription, toast])
 
   const showNotification = useCallback((data: Omit<NotificationData, 'id' | 'timestamp' | 'read'>) => {
-    if (!state.isSupported || state.permission !== 'granted') {
+    if (!state.isSupported || state.permission !== ('granted' as NotificationPermission)) {
       // Fallback to toast
-      toast.info(data.title, data.body)
+      // toast.info(data.title, data.body)
       return
     }
 
@@ -180,7 +180,6 @@ export function useNotifications() {
       body: data.body,
       icon: data.icon || '/icon-192x192.png',
       badge: data.badge || '/icon-72x72.png',
-      image: data.image,
       data: data.data,
       tag: data.tag,
       requireInteraction: data.type === 'system'
