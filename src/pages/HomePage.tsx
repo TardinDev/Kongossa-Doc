@@ -7,6 +7,7 @@ import { HeroSection } from '../components/HeroSection'
 import { useDocuments } from '../hooks/useDocuments'
 import { useToast } from '../hooks/useToast'
 import { ToastContainer } from '../components/Toast'
+import { Pagination } from '../components/Pagination'
 
 
 export default function HomePage() {
@@ -93,25 +94,14 @@ export default function HomePage() {
               </motion.div>
             </AnimatePresence>
 
-            <div className="flex items-center justify-center gap-3 pt-6">
-              <button
-                className="px-4 py-2 rounded-lg border border-white/10 bg-white/5 hover:bg-white/10 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
-                onClick={() => setPage(p => Math.max(1, p - 1))}
-                disabled={!pagination.hasPrev}
-              >
-                Précédent
-              </button>
-              <span className="text-sm text-gray-300 px-4">
-                Page {pagination.currentPage} / {pagination.totalPages}
-              </span>
-              <button
-                className="px-4 py-2 rounded-lg bg-[var(--accent-orange)] text-black font-semibold hover:bg-orange-500/90 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
-                onClick={() => setPage(p => p + 1)}
-                disabled={!pagination.hasNext}
-              >
-                Suivant
-              </button>
-            </div>
+            <Pagination
+              currentPage={pagination.currentPage}
+              totalPages={pagination.totalPages}
+              hasPrev={pagination.hasPrev}
+              hasNext={pagination.hasNext}
+              onPrev={() => setPage(p => Math.max(1, p - 1))}
+              onNext={() => setPage(p => p + 1)}
+            />
           </>
         )}
       </div>
@@ -119,4 +109,3 @@ export default function HomePage() {
     </>
   )
 }
-
