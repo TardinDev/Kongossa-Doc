@@ -46,8 +46,20 @@ export default function HomePage() {
   return (
     <>
       <HeroSection />
-      
-      <div id="documents" className="space-y-6">
+
+      {/* Section separator with gradient */}
+      <div className="relative my-12">
+        <div className="absolute inset-0 flex items-center">
+          <div className="w-full border-t border-white/10"></div>
+        </div>
+        <div className="relative flex justify-center">
+          <span className="bg-[var(--color-bg)] px-6 py-2 text-sm text-[var(--text-silver)] rounded-full border border-white/10 backdrop-blur-sm">
+            📚 Documents disponibles
+          </span>
+        </div>
+      </div>
+
+      <div id="documents" className="space-y-8">
         <SearchAndFilters
           query={query}
           onQueryChange={setQuery}
@@ -76,17 +88,26 @@ export default function HomePage() {
         ) : (
           <>
             <AnimatePresence mode="popLayout">
-              <motion.div layout className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-                {documents.map((doc) => (
-                  <motion.div 
-                    key={doc.id} 
-                    layout 
-                    initial={{ opacity: 0, scale: 0.9 }} 
-                    animate={{ opacity: 1, scale: 1 }} 
-                    exit={{ opacity: 0, scale: 0.9 }}
-                    transition={{ duration: 0.2 }}
+              <motion.div
+                layout
+                className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6"
+              >
+                {documents.map((doc, index) => (
+                  <motion.div
+                    key={doc.id}
+                    layout
+                    initial={{ opacity: 0, y: 50 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, scale: 0.8 }}
+                    transition={{
+                      duration: 0.4,
+                      delay: index * 0.05,
+                      type: "spring",
+                      stiffness: 100
+                    }}
+                    whileHover={{ y: -8 }}
                   >
-                    <Link to={`/d/${doc.id}`} className="block">
+                    <Link to={`/d/${doc.id}`} className="block h-full">
                       <DocumentCard doc={doc} onPreview={() => {}} />
                     </Link>
                   </motion.div>
