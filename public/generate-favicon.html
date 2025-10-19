@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>KongossaDoc Favicon Generator</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 20px;
+            background: #1a1a1a;
+            color: white;
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        h1 {
+            color: #f97316;
+        }
+        canvas {
+            border: 2px solid #333;
+            margin: 10px;
+            cursor: pointer;
+        }
+        .info {
+            background: #2a2a2a;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎨 KongossaDoc Favicon Generator</h1>
+        <div class="info">
+            <p>Cliquez avec le bouton droit sur une image et sélectionnez "Enregistrer l'image sous..."</p>
+            <p>📁 Enregistrez les fichiers dans le dossier <code>public/</code></p>
+        </div>
+
+        <h2>16x16 (favicon-16x16.png)</h2>
+        <canvas id="canvas16" width="16" height="16"></canvas>
+
+        <h2>32x32 (favicon-32x32.png)</h2>
+        <canvas id="canvas32" width="32" height="32"></canvas>
+
+        <h2>180x180 (apple-touch-icon.png)</h2>
+        <canvas id="canvas180" width="180" height="180"></canvas>
+
+        <h2>512x512 (icon-512x512.png pour PWA)</h2>
+        <canvas id="canvas512" width="512" height="512"></canvas>
+    </div>
+
+    <script>
+        function drawFavicon(canvas) {
+            const ctx = canvas.getContext('2d');
+            const size = canvas.width;
+            const scale = size / 512;
+
+            // Clear canvas
+            ctx.clearRect(0, 0, size, size);
+
+            // Draw gradient background
+            const gradient = ctx.createLinearGradient(0, 0, size, size);
+            gradient.addColorStop(0, '#f97316');
+            gradient.addColorStop(0.5, '#fb923c');
+            gradient.addColorStop(1, '#7c3aed');
+
+            // Rounded rectangle background
+            ctx.fillStyle = gradient;
+            const radius = 110 * scale;
+            roundRect(ctx, 0, 0, size, size, radius);
+            ctx.fill();
+
+            // Draw message bubble
+            ctx.save();
+            ctx.translate(size / 2, size / 2);
+
+            // Main bubble
+            const bubbleWidth = 280 * scale;
+            const bubbleHeight = 200 * scale;
+            const bubbleX = -bubbleWidth / 2;
+            const bubbleY = -bubbleHeight / 2;
+            const bubbleRadius = 30 * scale;
+
+            const iconGradient = ctx.createLinearGradient(bubbleX, bubbleY, bubbleX + bubbleWidth, bubbleY + bubbleHeight);
+            iconGradient.addColorStop(0, 'rgba(255, 255, 255, 0.9)');
+            iconGradient.addColorStop(1, 'rgba(255, 255, 255, 0.7)');
+
+            ctx.fillStyle = iconGradient;
+            ctx.strokeStyle = '#ffffff';
+            ctx.lineWidth = 8 * scale;
+            roundRect(ctx, bubbleX, bubbleY, bubbleWidth, bubbleHeight, bubbleRadius);
+            ctx.fill();
+            ctx.stroke();
+
+            // Speech bubble tail
+            ctx.beginPath();
+            ctx.moveTo(-50 * scale, 100 * scale);
+            ctx.lineTo(-30 * scale, 140 * scale);
+            ctx.lineTo(10 * scale, 100 * scale);
+            ctx.closePath();
+            ctx.fillStyle = iconGradient;
+            ctx.fill();
+            ctx.stroke();
+
+            // Three dots
+            const dotRadius = 20 * scale;
+            const dotY = 0;
+
+            // Dot 1 (orange)
+            ctx.fillStyle = '#f97316';
+            ctx.beginPath();
+            ctx.arc(-70 * scale, dotY, dotRadius, 0, Math.PI * 2);
+            ctx.fill();
+
+            // Dot 2 (lighter orange)
+            ctx.fillStyle = '#fb923c';
+            ctx.beginPath();
+            ctx.arc(0, dotY, dotRadius, 0, Math.PI * 2);
+            ctx.fill();
+
+            // Dot 3 (purple)
+            ctx.fillStyle = '#7c3aed';
+            ctx.beginPath();
+            ctx.arc(70 * scale, dotY, dotRadius, 0, Math.PI * 2);
+            ctx.fill();
+
+            ctx.restore();
+        }
+
+        function roundRect(ctx, x, y, width, height, radius) {
+            ctx.beginPath();
+            ctx.moveTo(x + radius, y);
+            ctx.lineTo(x + width - radius, y);
+            ctx.quadraticCurveTo(x + width, y, x + width, y + radius);
+            ctx.lineTo(x + width, y + height - radius);
+            ctx.quadraticCurveTo(x + width, y + height, x + width - radius, y + height);
+            ctx.lineTo(x + radius, y + height);
+            ctx.quadraticCurveTo(x, y + height, x, y + height - radius);
+            ctx.lineTo(x, y + radius);
+            ctx.quadraticCurveTo(x, y, x + radius, y);
+            ctx.closePath();
+        }
+
+        // Generate all sizes
+        drawFavicon(document.getElementById('canvas16'));
+        drawFavicon(document.getElementById('canvas32'));
+        drawFavicon(document.getElementById('canvas180'));
+        drawFavicon(document.getElementById('canvas512'));
+
+        // Add download functionality
+        document.querySelectorAll('canvas').forEach(canvas => {
+            canvas.addEventListener('click', function() {
+                const link = document.createElement('a');
+                link.download = canvas.id.replace('canvas', 'favicon-') + '.png';
+                if (canvas.id === 'canvas180') {
+                    link.download = 'apple-touch-icon.png';
+                } else if (canvas.id === 'canvas512') {
+                    link.download = 'icon-512x512.png';
+                }
+                link.href = canvas.toDataURL('image/png');
+                link.click();
+            });
+        });
+
+        console.log('✅ Favicons générés ! Cliquez sur les images pour les télécharger.');
+    </script>
+</body>
+</html>
