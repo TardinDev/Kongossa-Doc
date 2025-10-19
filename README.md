@@ -50,7 +50,11 @@ Créer un fichier `.env` à la racine du projet :
 
 ```env
 VITE_CLERK_PUBLISHABLE_KEY=votre_clerk_publishable_key
+VITE_SUPABASE_URL=votre_supabase_project_url
+VITE_SUPABASE_ANON_KEY=votre_supabase_anon_key
 ```
+
+> **Important** : Consultez [SUPABASE_SETUP.md](SUPABASE_SETUP.md) pour configurer votre backend Supabase
 
 4. Lancer le serveur de développement
 
@@ -135,8 +139,13 @@ kongossaDoc/
 - **TanStack Query 5.85** - Gestion des requêtes async
 - **Zod 4.0** - Validation de schémas
 
-### Fonctionnalités
+### Backend & Fonctionnalités
 
+- **Supabase 2.75** - Backend as a Service (BaaS)
+  - PostgreSQL database
+  - Storage pour fichiers
+  - Row Level Security (RLS)
+  - Real-time subscriptions
 - **Clerk 5.42** - Authentification et gestion utilisateurs
 - **PDF.js 5.4** - Rendu de documents PDF
 - **JSZip 3.10** - Manipulation de fichiers ZIP
@@ -201,6 +210,8 @@ Les fichiers de production seront dans le dossier `dist/`.
 | Variable | Description | Requis |
 |----------|-------------|--------|
 | `VITE_CLERK_PUBLISHABLE_KEY` | Clé publique Clerk | ✅ |
+| `VITE_SUPABASE_URL` | URL du projet Supabase | ✅ |
+| `VITE_SUPABASE_ANON_KEY` | Clé anonyme Supabase | ✅ |
 
 ## 🤝 Contribution
 
