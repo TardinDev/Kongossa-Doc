@@ -122,7 +122,14 @@ export const DocumentCard = memo<DocumentCardProps>(({ doc, onPreview }) => {
         ) : (
           <div className="w-full h-full grid place-items-center text-5xl">{typeEmoji(doc.type)}</div>
         )}
-        
+
+        {/* Document Number Badge */}
+        {doc.documentNumber && (
+          <div className="absolute top-2 left-2 px-2.5 py-1 rounded-full bg-[var(--accent-orange)] text-black font-mono text-xs font-bold shadow-lg">
+            {doc.documentNumber}
+          </div>
+        )}
+
         <button
           onClick={handleFavoriteToggle}
           className="absolute top-2 right-2 p-2 rounded-full bg-black/50 text-white hover:bg-black/70 transition-colors"
@@ -138,12 +145,7 @@ export const DocumentCard = memo<DocumentCardProps>(({ doc, onPreview }) => {
       <div className="p-4">
         <div className="space-y-2">
           <div className="flex items-center justify-between gap-3">
-            <div className="flex-1 min-w-0">
-              <h3 className="font-semibold text-white line-clamp-1">{doc.title}</h3>
-              {doc.documentNumber && (
-                <p className="text-xs text-[var(--accent-orange)] font-mono mt-0.5">{doc.documentNumber}</p>
-              )}
-            </div>
+            <h3 className="font-semibold text-white line-clamp-1 flex-1 min-w-0">{doc.title}</h3>
             <span className="text-xs px-2 py-0.5 rounded bg-white/10 text-[var(--text-silver)] shrink-0">{doc.type.toUpperCase()}</span>
           </div>
 
