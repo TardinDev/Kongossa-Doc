@@ -1,10 +1,11 @@
-import { Route, Routes } from 'react-router-dom'
+import { Route, Routes, useNavigate } from 'react-router-dom'
 import { lazy, Suspense } from 'react'
 import { MainLayout } from './layouts/MainLayout'
 import { ErrorBoundary } from './components/ErrorBoundary'
 import { LoadingSkeleton } from './components/LoadingSkeleton'
 import { useServiceWorker } from './hooks/useServiceWorker'
 import { useGlobalKeyboardShortcuts } from './hooks/useGlobalKeyboardShortcuts'
+import { FiHome, FiWifi } from 'react-icons/fi'
 
 const HomePage = lazy(() => import('./pages/HomePage'))
 const AuthPage = lazy(() => import('./pages/AuthPage'))
@@ -16,13 +17,26 @@ function AppInner() {
   // Test both hooks
   const { isOnline, updateAvailable, updateServiceWorker } = useServiceWorker()
   useGlobalKeyboardShortcuts()
+  const navigate = useNavigate()
 
   return (
     <ErrorBoundary>
       {/* Offline indicator */}
       {!isOnline && (
-        <div className="fixed top-0 left-0 right-0 z-50 bg-red-600 text-white text-center py-2 text-sm">
-          🔌 Mode hors ligne - Certaines fonctionnalités peuvent être limitées
+        <div className="fixed top-0 left-0 right-0 z-50 bg-red-600 text-white py-2 text-sm shadow-lg">
+          <div className="container mx-auto px-4 flex items-center justify-between">
+            <div className="flex items-center gap-2">
+              <FiWifi className="w-4 h-4" />
+              <span>Mode hors ligne - Certaines fonctionnalités peuvent être limitées</span>
+            </div>
+            <button
+              onClick={() => navigate('/')}
+              className="flex items-center gap-2 px-3 py-1 bg-white/20 hover:bg-white/30 rounded transition-colors"
+            >
+              <FiHome className="w-3 h-3" />
+              <span className="hidden sm:inline">Retour à l'accueil</span>
+            </button>
+          </div>
         </div>
       )}
 
