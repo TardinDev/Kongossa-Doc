@@ -138,10 +138,15 @@ export const DocumentCard = memo<DocumentCardProps>(({ doc, onPreview }) => {
       <div className="p-4">
         <div className="space-y-2">
           <div className="flex items-center justify-between gap-3">
-            <h3 className="font-semibold text-white line-clamp-1">{doc.title}</h3>
-            <span className="text-xs px-2 py-0.5 rounded bg-white/10 text-[var(--text-silver)]">{doc.type.toUpperCase()}</span>
+            <div className="flex-1 min-w-0">
+              <h3 className="font-semibold text-white line-clamp-1">{doc.title}</h3>
+              {doc.documentNumber && (
+                <p className="text-xs text-[var(--accent-orange)] font-mono mt-0.5">{doc.documentNumber}</p>
+              )}
+            </div>
+            <span className="text-xs px-2 py-0.5 rounded bg-white/10 text-[var(--text-silver)] shrink-0">{doc.type.toUpperCase()}</span>
           </div>
-          
+
           {doc.tags && doc.tags.length > 0 && (
             <div className="flex flex-wrap gap-1">
               {doc.tags.slice(0, 3).map(tag => (

@@ -28,6 +28,7 @@ export type Database = {
           download_count: number
           category: string | null
           description: string | null
+          document_number: string | null
         }
         Insert: {
           id?: string
@@ -47,6 +48,7 @@ export type Database = {
           download_count?: number
           category?: string | null
           description?: string | null
+          document_number?: string | null
         }
         Update: {
           id?: string
@@ -66,6 +68,7 @@ export type Database = {
           download_count?: number
           category?: string | null
           description?: string | null
+          document_number?: string | null
         }
       }
       comments: {

@@ -16,6 +16,7 @@ export interface DocumentItem {
   downloadCount?: number
   category?: string
   description?: string
+  documentNumber?: string
 }
 
 export interface AppUser {

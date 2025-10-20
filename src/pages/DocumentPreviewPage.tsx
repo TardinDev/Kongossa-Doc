@@ -58,7 +58,14 @@ export default function DocumentPreviewPage() {
       >
         <div className="flex items-start justify-between gap-4">
           <div>
-            <h1 className="font-heading text-2xl font-bold text-white mb-2">{data.title}</h1>
+            <div className="flex items-center gap-3 mb-2">
+              <h1 className="font-heading text-2xl font-bold text-white">{data.title}</h1>
+              {data.documentNumber && (
+                <span className="text-sm font-mono text-[var(--accent-orange)] bg-[var(--accent-orange)]/10 px-3 py-1 rounded-full">
+                  {data.documentNumber}
+                </span>
+              )}
+            </div>
             <div className="flex items-center gap-4 text-sm text-[var(--text-silver)]">
               <div className="flex items-center gap-1">
                 <FiEye className="w-4 h-4" />

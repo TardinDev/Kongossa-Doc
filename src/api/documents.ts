@@ -22,7 +22,8 @@ function dbDocumentToAppDocument(doc: DbDocument): DocumentItem {
     viewCount: doc.view_count || 0,
     downloadCount: doc.download_count || 0,
     category: doc.category || undefined,
-    description: doc.description || undefined
+    description: doc.description || undefined,
+    documentNumber: doc.document_number || undefined
   }
 }
 
@@ -64,9 +65,18 @@ export async function fetchDocuments(params: FetchDocumentsParams = {}): Promise
     queryBuilder = queryBuilder.eq('owner_id', userId)
   }
 
-  // Search filter
+  // Search filter - search by title, tags, or document number
   if (query) {
-    queryBuilder = queryBuilder.or(`title.ilike.%${query}%,tags.cs.{${query}}`)
+    // Check if the query starts with # to search specifically by document number
+    if (query.startsWith('#')) {
+      queryBuilder = queryBuilder.eq('document_number', query)
+    } else {
+      // Search by title, tags, or document number (with or without #)
+      const searchQuery = query.startsWith('#') ? query : query
+      queryBuilder = queryBuilder.or(
+        `title.ilike.%${searchQuery}%,tags.cs.{${searchQuery}},document_number.ilike.%${searchQuery}%`
+      )
+    }
   }
 
   // Type filter
@@ -130,6 +140,33 @@ export async function fetchDocumentById(id: string): Promise<DocumentItem | null
 
   // Increment view count
   await supabase.rpc('increment_view_count', { document_uuid: id })
+
+  return dbDocumentToAppDocument(data)
+}
+
+/**
+ * Fetch a single document by document number (e.g., #1001)
+ */
+export async function fetchDocumentByNumber(documentNumber: string): Promise<DocumentItem | null> {
+  // Ensure the document number starts with #
+  const formattedNumber = documentNumber.startsWith('#') ? documentNumber : `#${documentNumber}`
+
+  const { data, error } = await supabase
+    .from('documents')
+    .select('*')
+    .eq('document_number', formattedNumber)
+    .single()
+
+  if (error) {
+    if (error.code === 'PGRST116') {
+      return null // Document not found
+    }
+    console.error('Error fetching document by number:', error)
+    throw new Error(`Failed to fetch document: ${error.message}`)
+  }
+
+  // Increment view count
+  await supabase.rpc('increment_view_count', { document_uuid: data.id })
 
   return dbDocumentToAppDocument(data)
 }
