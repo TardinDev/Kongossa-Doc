@@ -1,4 +1,4 @@
-import { motion, useAnimation } from 'framer-motion'
+import { motion } from 'framer-motion'
 import { FiUpload, FiDownload, FiUsers, FiMessageSquare, FiZap, FiShield } from 'react-icons/fi'
 import { Link } from 'react-router-dom'
 import { useAuth } from '@clerk/clerk-react'
